@@ -18,11 +18,11 @@ const tokens = (n) => {
   
     const occasions = [
       {
-        name: "Match 1",
+        name: "Match",
         cost: tokens(0.03),
         tickets: 0,
         date: "May 31",
-        time: "6:00PM IST",
+        time: "6:00PM UTC",
         location: "Kaloor, Ernakulam"
       },
       {
@@ -30,7 +30,7 @@ const tokens = (n) => {
         cost: tokens(0.06),
         tickets: 100,
         date: "Jun 2",
-        time: "1:00PM JST",
+        time: "1:00PM UTC",
         location: "Tokyo, Japan"
       }
     ]

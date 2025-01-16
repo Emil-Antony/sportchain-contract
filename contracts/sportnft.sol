@@ -2,6 +2,7 @@
 pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
 
 contract sportnft is ERC721{
     address public owner;
@@ -27,6 +28,9 @@ contract sportnft is ERC721{
     mapping(uint => uint256[]) public takenSeats; // The list of seats taken in that occasion
     mapping(uint256 => bool) private tokenExists;
     mapping(string => uint256) private occasionIDs;
+
+    //interface mappings
+    mapping(address => uint256[]) private _ownedTokens;
 
     modifier onlyOwner(){
         require(msg.sender == owner);
@@ -82,6 +86,8 @@ contract sportnft is ERC721{
         emit Minted(msg.sender, tokenId);
         _safeMint(msg.sender, tokenId);
         tokenExists[tokenId] = true;
+
+        _ownedTokens[msg.sender].push(tokenId);
     }
 
     function _baseURI() internal view virtual override returns (string memory) {
@@ -129,4 +135,10 @@ contract sportnft is ERC721{
         (bool success, ) = owner.call{value: address(this).balance}("");
         require(success);
     }
+
+    function tokenOfOwnerByIndex(address useracc, uint256 index) public view returns (uint256) {
+        require(index < _ownedTokens[useracc].length, "Index out of bounds");
+        return _ownedTokens[useracc][index];
+    }
+
 }
