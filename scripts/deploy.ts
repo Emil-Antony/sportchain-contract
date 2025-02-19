@@ -15,11 +15,15 @@ const tokens = (n) => {
     const sportNFT = (await (await ethers.getContractFactory("sportnft")).deploy(NAME,SYMBOL,baseURI));
     await sportNFT.waitForDeployment();
     console.log(`Deployed SportNFT Contract at: ${await sportNFT.getAddress()}\n`)
+
+    const gameCoin = (await (await ethers.getContractFactory("GameCoin")).deploy());
+    await gameCoin.waitForDeployment();
+    console.log(`Deployed GameCoin at ${await gameCoin.getAddress()} and minted 1000000 GC`);
   
     const occasions = [
       {
         name: "Match",
-        cost: tokens(0.03),
+        cost: tokens(10),
         tickets: 0,
         date: "May 31",
         time: "6:00PM UTC",
@@ -27,7 +31,7 @@ const tokens = (n) => {
       },
       {
         name: "Tokyo SL",
-        cost: tokens(0.06),
+        cost: tokens(20),
         tickets: 100,
         date: "Jun 2",
         time: "1:00PM UTC",
